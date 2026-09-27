@@ -118,3 +118,7 @@ Microsoft公式一覧：https://support.microsoft.com/en-us/excel/excel-function
 - https://support.microsoft.com/en-gb/office/find-function-c7912941-af2a-4bdf-a553-d0d89b0a0628
 - https://support.microsoft.com/en-us/excel/functions/left-function
 - https://support.microsoft.com/en-us/excel/functions/right-function
+
+### 更新時のキャッシュ対策
+
+Excel関数検索ページはCSS・JavaScriptのURLに内容のSHA-256先頭12桁を `?v=` として付けています。ファイルを更新した際は、対応する `index.html` 内の識別子も変更してください。HTMLだけ新しく、スクリプトが旧キャッシュの状態では初期化が止まるためです。
