@@ -2,6 +2,11 @@
 // 1行 = 名前 | カテゴリ | 説明 | 構文の引数 | 数式例 | 例の説明 | 注意点
 // 各行を追加すると詳細・検索に自動反映。[]は省略可能、…は繰り返し。
 const functionRows = `
+PHONETIC|文字列|セルに記録されたふりがなを取り出す|参照|=PHONETIC(A2)|A2に記録されたふりがなを表示します。|漢字から読みを自動推測する関数ではありません。ふりがな情報が必要です。
+FINDB|文字列|文字の位置をバイト単位で探す|検索文字列, 対象文字列, [開始バイト位置]|=FINDB("A",A2)|日本語のDBCS設定で、東京の後ろのAの位置を5と返します。|大文字小文字を区別します。DBCS設定以外ではFINDと同じ数え方です。
+LEFTB|文字列|左から指定バイト数の文字を取り出す|文字列, [バイト数]|=LEFTB(A2,4)|日本語のDBCS設定で、東京ABの左4バイトから東京を返します。|全角文字の途中で切らないようにバイト数を指定します。
+LENB|文字列|文字列の長さをバイト単位で数える|文字列|=LENB(A2)|日本語のDBCS設定で、東京ABの長さを6と返します。|文字数とは異なります。UTF-8のファイルサイズを測る関数ではありません。
+RIGHTB|文字列|右から指定バイト数の文字を取り出す|文字列, [バイト数]|=RIGHTB(A2,4)|日本語のDBCS設定で、AB東京の右4バイトから東京を返します。|DBCS設定以外ではRIGHTと同じ数え方です。
 SUM|数学・集計|数値を合計する|数値1, [数値2], …|=SUM(B2:B10)|B2からB10の売上を合計します。|範囲内の文字列は合計されません。
 SUMIF|条件付き集計|1つの条件に合う数値を合計する|条件範囲, 条件, [合計範囲]|=SUMIF(A2:A10,"東京",B2:B10)|A列が東京の行だけB列の売上を合計します。|条件範囲と合計範囲の行数をそろえます。
 SUMIFS|条件付き集計|複数条件に合う数値を合計する|合計範囲, 条件範囲1, 条件1, …|=SUMIFS(C2:C10,A2:A10,"東京",B2:B10,"文具")|東京かつ文具の売上を合計します。|SUMIFと違い、合計範囲が先頭です。
@@ -214,6 +219,7 @@ const versionGroups = {
   "Excel 2016以降 / Microsoft 365": "FORECAST.LINEAR"
 };
 const relatedGroups = [
+  "PHONETIC ASC JIS", "FIND FINDB SEARCH", "LEFT LEFTB RIGHT RIGHTB MID LEN LENB",
   "SUM SUMIF SUMIFS SUMPRODUCT SUBTOTAL AGGREGATE DSUM", "AVERAGE AVERAGEIF AVERAGEIFS MEDIAN DAVERAGE",
   "COUNT COUNTA COUNTBLANK COUNTIF COUNTIFS DCOUNT DCOUNTA UNIQUE", "MAX MIN MAXIFS MINIFS LARGE SMALL DMAX DMIN",
   "ROUND ROUNDUP ROUNDDOWN INT TRUNC MROUND CEILING.MATH FLOOR.MATH", "RAND RANDBETWEEN RANDARRAY",
@@ -229,6 +235,7 @@ const relatedGroups = [
   "ROW COLUMN ROWS COLUMNS ADDRESS OFFSET INDIRECT", "ISNUMBER ISTEXT ISBLANK ISLOGICAL ISFORMULA"
 ];
 const argumentHelp = {
+  バイト数:"取り出すバイト数。日本語のDBCS設定では全角は2、半角は1として数えます。省略時は1。", 開始バイト位置:"検索を始めるバイト位置。先頭は1、省略時も1。",
   数値: "計算する数値またはセル参照。", 値: "調べる値やセル参照。", 範囲:"対象のセル範囲。例：A2:A100。", 参照:"調べるセルや範囲。", 桁数: "小数点以下の桁数。0は整数、負数は十・百などの位。",
   条件範囲:"条件を調べるセル範囲。", 合計範囲:"条件に一致した行で足す数値の範囲。", 平均範囲:"条件に一致した行で平均する数値の範囲。", 最大範囲:"最大値を求める数値の範囲。", 最小範囲:"最小値を求める数値の範囲。",
   真の場合:"条件が成立した場合に返す値。", 偽の場合:"条件が成立しなかった場合に返す値。", 結果:"対応する条件や値に一致したときの戻り値。", 既定値:"どの条件にも一致しない場合の戻り値。", エラーの場合:"計算がエラーになった場合に返す値。", NAの場合:"#N/Aになった場合に返す値。",
@@ -283,6 +290,32 @@ const exampleDetails = {
   }
 };
 for (const [name, detail] of Object.entries(exampleDetails)) Object.assign(FUNCTIONS.find(f=>f.name===name).examples[0],detail);
+const byteExampleDetails = {
+ PHONETIC:{value:'山田 太郎',meaning:'氏名。セルのふりがなを「ヤマダ タロウ」に設定',result:'ヤマダ タロウ',explanation:'A2に「山田 太郎」を入力し、Excelの［ふりがなの編集］で「ヤマダ タロウ」を設定してから、B2に数式を入力します。B2には設定した読みが表示されます。コピーした漢字にはふりがなが付いていない場合があります。'},
+ FINDB:{value:'東京AB',result:5,explanation:'日本語のDBCS設定では、東が2バイト、京が2バイトなので、Aは5バイト目にあります。FINDなら3文字目として3を返します。'},
+ LEFTB:{value:'東京AB',result:'東京',explanation:'日本語のDBCS設定では全角1文字を2バイトと数えます。左から4バイト分なので「東京」を取り出します。LEFT(A2,4)なら「東京AB」です。'},
+ LENB:{value:'東京AB',result:6,explanation:'日本語のDBCS設定では、東と京が各2バイト、AとBが各1バイトなので合計6です。LEN(A2)なら文字数の4を返します。'},
+ RIGHTB:{value:'AB東京',result:'東京',explanation:'日本語のDBCS設定で、末尾の東と京が各2バイトなので、右から4バイト分の「東京」を取り出します。RIGHT(A2,4)なら「AB東京」です。'}
+};
+for (const [name,detail] of Object.entries(byteExampleDetails)) {
+ const f=FUNCTIONS.find(f=>f.name===name);
+ Object.assign(f.examples[0],{inputs:[{cell:'A2',value:detail.value,meaning:detail.meaning||'半角英字と全角の漢字を含む文字列'}],outputCell:'B2',result:detail.result,explanation:detail.explanation});
+ f.keywords.push('半角','全角','日本語',name==='PHONETIC'?'ふりがな 読み方 フリガナ':'バイト数 DBCS');
+ if(name==='PHONETIC') {
+  f.version='Excel 2010以降 / Microsoft 365（日本語などの東アジア言語の地域設定）';
+  f.notes='漢字の入力時や［ふりがなの編集］で記録した読みを返します。コピー・取り込みデータでは読みの情報がない場合があり、上の結果と異なることがあります。';
+  f.source='https://support.microsoft.com/en-US/Excel/functions/phonetic-function';
+ } else {
+  f.version='Excel 2010以降 / Microsoft 365（旧互換・非推奨関数）';
+  f.notes='資料や既存ブックの学習用として収録しています。日本語などDBCSを使う言語設定では全角文字を2バイトと数え、それ以外では1文字を1として数えます。MicrosoftはB系関数を非推奨としています。新規の式では対応するFIND・LEFT・LEN・RIGHTも検討してください。';
+  f.source=name==='FINDB'?'https://support.microsoft.com/en-gb/office/find-function-c7912941-af2a-4bdf-a553-d0d89b0a0628':name==='LENB'?'https://support.microsoft.com/en-us/excel/len-function':`https://support.microsoft.com/en-us/excel/functions/${{FINDB:'find',LEFTB:'left',RIGHTB:'right'}[name]}-function`;
+ }
+}
+// ユーザー提供のCS検定2級_関数一覧.htmlに掲載された85件。
+// 資料のSUBSTITUDEはSUBSTITUTEへ訂正。公式試験範囲を保証するものではありません。
+const CS_FUNCTION_NAMES = 'DATE DATEVALUE DATEDIF DAY HOUR MINUTE MONTH NOW SECOND TIME TIMEVALUE TODAY WEEKDAY WORKDAY YEAR CHOOSE HLOOKUP INDEX MATCH VLOOKUP XLOOKUP AND FALSE IF IFS NOT OR SWITCH TRUE AVERAGE AVERAGEIF AVERAGEIFS COUNT COUNTA COUNTBLANK COUNTIF COUNTIFS LARGE MAX MAXIFS MIN MINIFS RANK.EQ SMALL PHONETIC CEILING.MATH FLOOR.MATH INT MOD ROUND ROUNDDOWN ROUNDUP SUBTOTAL SUM SUMIF SUMIFS TRUNC ASC CONCAT FIND FINDB JIS LEFT LEFTB LEN LENB LOWER MID PROPER REPLACE REPT RIGHT RIGHTB SUBSTITUTE TEXT TEXTJOIN UPPER VALUE DAVERAGE DCOUNT DCOUNTA DGET DMAX DMIN DSUM'.split(' ');
+for (const f of FUNCTIONS) if(CS_FUNCTION_NAMES.includes(f.name))f.keywords.push('CS検定2級','CS検定','資料掲載');
+FUNCTIONS.find(f=>f.name==='SUBSTITUTE').keywords.push('SUBSTITUDE');
 const TASKS = [
  ['合計したい','SUM SUMIF SUMIFS SUBTOTAL SUMPRODUCT'],['平均を出したい','AVERAGE AVERAGEIF AVERAGEIFS'],['件数を数えたい','COUNT COUNTA COUNTBLANK COUNTIF COUNTIFS'],
  ['条件によって表示を変えたい','IF IFS SWITCH'],['条件に合うデータを集計したい','SUMIF SUMIFS AVERAGEIFS COUNTIFS DSUM GROUPBY PIVOTBY'],
@@ -291,5 +324,6 @@ const TASKS = [
  ['エラーを非表示にしたい','IFERROR IFNA'],['重複を除きたい','UNIQUE COUNTIF'],['並べ替えたい','SORT SORTBY'],['条件に合う行だけ表示したい','FILTER'],
  ['複数条件で判定したい','AND OR IFS IF COUNTIFS SUMIFS'],['順位をつけたい','RANK.EQ RANK.AVG LARGE SMALL'],['四捨五入したい','ROUND MROUND'],['ランダムな値を作りたい','RAND RANDBETWEEN RANDARRAY']
 ].map(([label,names]) => ({label,names:names.split(' ')}));
+TASKS.unshift({label:'CS検定2級の資料掲載関数（85件）',names:CS_FUNCTION_NAMES});
 // 用途の日本語でも検索できるように、該当関数へ検索語を付けます。
 for (const task of TASKS) for (const name of task.names) FUNCTIONS.find(f => f.name === name).keywords.push(task.label,task.label.replace(/したい|を出したい|を作りたい/g,''));

@@ -88,7 +88,7 @@ tools/
 関数名を知らなくても、やりたいことから検索でき、構文・使用例・注意点まで確認できる初心者向けExcel関数検索ツール。
 
 - 場所：`excel_function_search/index.html`
-- 201関数、13カテゴリ、18種類の用途を収録。
+- 206関数、13カテゴリ、18種類の用途とCS検定2級の資料掲載関数フィルターを収録。
 - 関数名・日本語キーワード・用途・カテゴリ・数式例をリアルタイム検索。複数語はAND検索。
 - 詳細、引数、数式コピー、関連関数の比較と移動、対応版、0件案内に対応。
 - 白と薄いピンクのレスポンシブ画面。左上の戻るボタンはありません。
@@ -105,3 +105,16 @@ Microsoft公式一覧：https://support.microsoft.com/en-us/excel/excel-function
 2026年9月27日に版表示を確認。Microsoft 365限定の関数は更新チャネルや環境により提供時期が異なります。古い版でTRANSPOSEやFREQUENCYを使う場合は配列数式として確定してください。
 
 文字列結合系（CONCAT・CONCATENATE・TEXTJOIN）の数式例は、入力セルとその値、数式を入力するセル、計算結果を順番に表示します。`examples` に `inputs: [{cell, value, meaning}]`、`outputCell`、`result` を追加すれば他の関数でも同じ表示を利用できます。空白セルの値は空文字で指定します。
+
+### CS検定2級の資料掲載関数
+
+ユーザー提供の「CS検定2級_関数一覧.html」の85件を照合し、PHONETIC・FINDB・LEFTB・LENB・RIGHTBの5関数を追加しました。資料のSUBSTITUDEは正しいSUBSTITUTEに対応させ、誤記でも検索できます。「CS検定2級の資料掲載関数（85件）」ボタンまたは「CS検定2級」検索で抽出できます。公式試験範囲の認定ではなく、提供資料との照合です。元のHTMLは変更していません。
+
+追加例には入力セルの値・数式を置くセル・結果を記載。PHONETICはふりがな情報の準備、B系関数は日本語DBCS設定での計算と非推奨の注意を示しています。
+
+確認資料：
+- https://support.microsoft.com/en-US/Excel/functions/phonetic-function
+- https://support.microsoft.com/en-us/excel/len-function
+- https://support.microsoft.com/en-gb/office/find-function-c7912941-af2a-4bdf-a553-d0d89b0a0628
+- https://support.microsoft.com/en-us/excel/functions/left-function
+- https://support.microsoft.com/en-us/excel/functions/right-function
