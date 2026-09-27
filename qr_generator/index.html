@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff5f8">
+  <title>QRコード作成ツール | 便利Webツール</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="vendor/qrcode.js" defer></script>
+  <script src="vendor/qrcode_UTF8.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="../source-guard.js" defer></script>
+</head>
+<body>
+<main class="app-shell">
+  <header class="app-header">
+    <a href="../index.html">← 便利Webツール一覧へ戻る</a>
+    <h1>QRコード作成ツール</h1>
+    <p class="lead">URLや文章を入力するだけで、簡単にQRコードを作成できます。</p>
+    <p class="privacy-note">入力内容は外部へ送信されません</p>
+  </header>
+  <form id="qr-form" class="panel">
+    <h2><label for="qr-input"><span class="step">1</span>URLや文章を入力する</label></h2>
+    <textarea id="qr-input" rows="7" placeholder="https://example.com&#10;文章・メールアドレス・電話番号なども入力できます。" aria-describedby="char-count length-warning" spellcheck="false"></textarea>
+    <p id="char-count">文字数：0文字</p>
+    <p id="length-warning" class="hint" hidden>文字数が多いとQRコードが細かくなり、読み取りにくくなる場合があります</p>
+    <h2><label for="qr-size"><span class="step">2</span>サイズを選ぶ</label></h2>
+    <select id="qr-size"><option value="256">小（256px）</option><option value="384" selected>中（384px）</option><option value="512">大（512px）</option></select>
+    <details id="advanced">
+      <summary>詳細設定（色を変える）</summary>
+      <div class="color-options">
+        <label>QRコードの色 <input type="color" id="qr-color" value="#000000"></label>
+        <label>背景色 <input type="color" id="bg-color" value="#ffffff"></label>
+      </div>
+      <p class="hint">暗いQRコードと明るい背景を選んでください。読み取りにくい配色は作成前にお知らせします。</p>
+    </details>
+    <div class="format-action"><span class="step">3</span><button class="button button-primary" type="submit">QRコードを作成する</button></div>
+    <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </form>
+  <section class="panel result-panel" aria-labelledby="result-title">
+    <h2 id="result-title"><span class="step">4</span>QRコードを保存する</h2>
+    <div id="qr-display"><p id="placeholder" class="hint">作成したQRコードがここに表示されます。</p><canvas id="qr-canvas" role="img" aria-label="作成したQRコード" hidden></canvas></div>
+    <div class="result-actions">
+      <button id="save" class="button button-secondary" type="button" disabled>QRコードを保存</button>
+      <button id="copy" class="button button-secondary" type="button" disabled>入力内容をコピー</button>
+      <button id="clear" class="button button-quiet" type="button">クリア</button>
+    </div>
+    <p class="hint">PNG画像として保存できます。読み取った内容を確認してからご利用ください。</p>
+  </section>
+  <footer>便利Webツール · QRコード作成ツール</footer>
+</main>
+</body>
+</html>
