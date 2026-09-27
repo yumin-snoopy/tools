@@ -1,9 +1,13 @@
 /* 既存ツールと同じ配色・パネル・ボタンを利用。共有CSSは変更しません。 */
 @import url("../text_formatter/style.css");
+/* 本文と補足説明を濃くし、このツール内の文字を読みやすくします。 */
+:root { --ink: #302b30; --muted: #514750; }
+body { font-weight: 500; }
+.lead { color: var(--ink); }
+textarea::placeholder, input::placeholder { color: #625661; opacity: 1; }
 select { font: inherit; outline-offset: 4px; }
 select, input[type="text"] { display: block; width: 100%; min-width: 0; min-height: 52px; border: 1px solid #ccbcc5; border-radius: 10px; padding: 12px; color: var(--ink); background: white; }
 .app-shell { max-width: 900px; }
-.back-link { display: inline-block; margin-bottom: 22px; font-size: .9rem; }
 .app-header .hint { margin-top: 12px; }
 .tips { padding: 22px 26px; border-radius: 16px; background: var(--pink); margin-bottom: 24px; }
 .tips h2 { font-size: 1rem; margin-bottom: 8px; }
