@@ -1,9 +1,14 @@
 /* 既存ツールと同じ配色・パネル・ボタンを利用。共有CSSは変更しません。 */
 @import url("../text_formatter/style.css");
 /* 本文と補足説明を濃くし、このツール内の文字を読みやすくします。 */
-:root { --ink: #302b30; --muted: #514750; }
+:root { --ink: #242024; --muted: #342e34; }
 body { font-weight: 500; }
 .lead { color: var(--ink); }
+/* 説明文・注意書きも濃い色と太さで表示します。 */
+.lead, .hint, .privacy-note, .section-description, .starter p, .tips li {
+  color: #292329;
+  font-weight: 600;
+}
 textarea::placeholder, input::placeholder { color: #625661; opacity: 1; }
 select { font: inherit; outline-offset: 4px; }
 select, input[type="text"] { display: block; width: 100%; min-width: 0; min-height: 52px; border: 1px solid #ccbcc5; border-radius: 10px; padding: 12px; color: var(--ink); background: white; }
