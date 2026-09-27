@@ -82,3 +82,24 @@ tools/
 
 パスワード生成、ファイル名生成、画像リサイズなどを追加する予定です。
 各ツールのフォルダを追加し、トップページの `.tool-card` を複製してリンク・タイトル・説明を変更すれば、入口を増やせます。
+
+## Excel関数検索ツール
+
+関数名を知らなくても、やりたいことから検索でき、構文・使用例・注意点まで確認できる初心者向けExcel関数検索ツール。
+
+- 場所：`excel_function_search/index.html`
+- 201関数、13カテゴリ、18種類の用途を収録。
+- 関数名・日本語キーワード・用途・カテゴリ・数式例をリアルタイム検索。複数語はAND検索。
+- 詳細、引数、数式コピー、関連関数の比較と移動、対応版、0件案内に対応。
+- 白と薄いピンクのレスポンシブ画面。左上の戻るボタンはありません。
+- 右クリック（入力欄を除く）と主要な開発者ツール系ショートカットを簡易抑止。ソースは完全には隠せません。検索・選択・コピー・貼り付けは利用可能です。
+- 外部ライブラリ、サーバー、データベースは使用しません。
+
+### データの追加・修正
+
+`functions.js` の `functionRows` に「名前 | カテゴリ | 説明 | 引数 | 数式例 | 説明 | 注意点」を1行追加します。引数内の[]は省略可能です。`versionGroups` に対応版、`relatedGroups` に関連関数、`argumentHelp` に引数の説明、`extraExamples` に追加例を管理しています。生成された各オブジェクトはname/category/summary/useCases/syntax/arguments/examples/pitfall/related/keywords/version/notes/sourceを持ちます。説明の内容は自分の表に合わせて変更してください。
+
+### 対応版の確認
+
+Microsoft公式一覧：https://support.microsoft.com/en-us/excel/excel-functions-alphabetical
+2026年9月27日に版表示を確認。Microsoft 365限定の関数は更新チャネルや環境により提供時期が異なります。古い版でTRANSPOSEやFREQUENCYを使う場合は配列数式として確定してください。
