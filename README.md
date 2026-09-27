@@ -103,3 +103,5 @@ tools/
 
 Microsoft公式一覧：https://support.microsoft.com/en-us/excel/excel-functions-alphabetical
 2026年9月27日に版表示を確認。Microsoft 365限定の関数は更新チャネルや環境により提供時期が異なります。古い版でTRANSPOSEやFREQUENCYを使う場合は配列数式として確定してください。
+
+文字列結合系（CONCAT・CONCATENATE・TEXTJOIN）の数式例は、入力セルとその値、数式を入力するセル、計算結果を順番に表示します。`examples` に `inputs: [{cell, value, meaning}]`、`outputCell`、`result` を追加すれば他の関数でも同じ表示を利用できます。空白セルの値は空文字で指定します。

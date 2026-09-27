@@ -263,6 +263,26 @@ const extraExamples = {
  IFERROR:[['=IFERROR(VLOOKUP(A2,F2:G100,2,FALSE),"確認してください")','検索結果がエラーの場合に案内を表示します。']]
 };
 for (const f of FUNCTIONS) for (const [formula, explanation] of extraExamples[f.name] || []) f.examples.push({formula, explanation});
+// 入力セル・数式を置くセル・計算結果を例ごとに管理します。
+// 他の関数にも examples 内の inputs / outputCell / result を追加できます。
+const exampleDetails = {
+  CONCAT: {
+    inputs:[{cell:'A2',value:'山田',meaning:'苗字'},{cell:'B2',value:'太郎',meaning:'名前'}],
+    outputCell:'C2', result:'山田 太郎',
+    explanation:'A2の「山田」とB2の「太郎」の間に半角スペースを入れてつなげます。数式の " " が半角スペースです。'
+  },
+  CONCATENATE: {
+    inputs:[{cell:'A2',value:'山田 太郎',meaning:'氏名'}],
+    outputCell:'B2', result:'山田 太郎様',
+    explanation:'A2に入っている氏名「山田 太郎」の後ろに「様」を付けます。'
+  },
+  TEXTJOIN: {
+    inputs:[{cell:'A2',value:'山田',meaning:'1人目の氏名'},{cell:'A3',value:'佐藤',meaning:'2人目の氏名'},{cell:'A4',value:'',meaning:'未入力のセル'},{cell:'A5',value:'鈴木',meaning:'3人目の氏名'}],
+    outputCell:'B2', result:'山田、佐藤、鈴木',
+    explanation:'A2:A5は「A2からA5までの4つのセル」です。氏名を「、」で区切ってつなげます。TRUEを指定しているので、未入力のA4は飛ばされます。'
+  }
+};
+for (const [name, detail] of Object.entries(exampleDetails)) Object.assign(FUNCTIONS.find(f=>f.name===name).examples[0],detail);
 const TASKS = [
  ['合計したい','SUM SUMIF SUMIFS SUBTOTAL SUMPRODUCT'],['平均を出したい','AVERAGE AVERAGEIF AVERAGEIFS'],['件数を数えたい','COUNT COUNTA COUNTBLANK COUNTIF COUNTIFS'],
  ['条件によって表示を変えたい','IF IFS SWITCH'],['条件に合うデータを集計したい','SUMIF SUMIFS AVERAGEIFS COUNTIFS DSUM GROUPBY PIVOTBY'],
