@@ -122,3 +122,9 @@ Microsoft公式一覧：https://support.microsoft.com/en-us/excel/excel-function
 ### 更新時のキャッシュ対策
 
 Excel関数検索ページはCSS・JavaScriptのURLに内容のSHA-256先頭12桁を `?v=` として付けています。ファイルを更新した際は、対応する `index.html` 内の識別子も変更してください。HTMLだけ新しく、スクリプトが旧キャッシュの状態では初期化が止まるためです。
+
+### 引数のガイド
+
+全206関数の引数説明を点検し、汎用的な「指定します」だけの説明を解消しました。詳細には必須・省略可、省略時の動作、53か所の選択値表を表示します。SUBTOTALの1～11/101～111、AGGREGATEの1～19と除外オプション0～7、検索モード、曜日・週番号、営業日の休日、日数基準、丸め方、動的配列、財務の支払期日、新しい集計・正規表現関数などを含みます。55関数に条件式や設定方法の補足ガイドを追加しました。数式の基本・セル参照・エラーの読み方もページ内に用意しています。
+
+引数補足はfunctions.jsのdetailedArgumentHelp、defaults、setArg、setOptions、addGuideで管理します。SUBTOTALとAGGREGATEは入力値・設定・結果を比較する例を追加しています。
