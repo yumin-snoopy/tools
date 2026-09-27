@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff5f8">
+  <title>文章整形ツール | 便利Webツール</title>
+  <meta name="description" content="空白・空行・改行の削除、全角英数字の変換などをまとめて行える文章整形ツール。">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <a class="back-link" href="../index.html">← 便利Webツール</a>
+    <header class="app-header">
+      <span class="eyebrow">貼り付けた文章を、すっきり読みやすく</span>
+      <h1>文章整形ツール</h1>
+      <p class="lead">文章を貼り付けて、必要な項目を選ぶだけで簡単に整形できます。</p>
+      <p class="privacy-note">文章はお使いのブラウザー内で処理されます。外部に送信・保存されません。</p>
+    </header>
+
+    <section class="panel" aria-labelledby="input-title">
+      <div class="section-heading">
+        <h2 id="input-title"><span class="step">1</span>文章を貼り付ける</h2>
+        <button class="button button-quiet" id="clear-button" type="button" disabled>クリア</button>
+      </div>
+      <label class="sr-only" for="input-text">整形したい文章</label>
+      <textarea id="input-text" rows="9" placeholder="メール、Word、ChatGPT、Webサイトなどからコピーした文章を、ここに貼り付けてください。" spellcheck="false" aria-describedby="input-count-note"></textarea>
+      <dl class="counts" aria-label="入力した文章の情報">
+        <div><dt>文字数</dt><dd id="input-total">0</dd></div>
+        <div><dt>空白を除いた文字数</dt><dd id="input-no-spaces">0</dd></div>
+        <div><dt>行数</dt><dd id="input-lines">0</dd></div>
+      </dl>
+      <p class="hint" id="input-count-note">文字数に改行は含みません。「空白を除いた文字数」はスペース・タブも除きます。</p>
+    </section>
+
+    <section class="panel" aria-labelledby="options-title">
+      <h2 id="options-title"><span class="step">2</span>整形したい項目を選ぶ</h2>
+      <p class="section-description">必要な項目にチェックを入れてください。複数選べます。</p>
+      <fieldset class="options-grid">
+        <legend class="sr-only">整形する処理</legend>
+        <!-- data-operation と script.js の処理名を対応させています。 -->
+        <label class="option"><input type="checkbox" data-operation="trimLines" checked><span><strong>行頭・行末の不要な空白を削除</strong><small>各行の前後にあるスペース・タブを取り除きます。</small></span></label>
+        <label class="option"><input type="checkbox" data-operation="collapseSpaces" checked><span><strong>連続した半角スペースを1つにする</strong><small>単語と単語の間の空白を、1つだけ残します。</small></span></label>
+        <label class="option"><input type="checkbox" data-operation="removeBlankLines"><span><strong>空行を削除</strong><small>文字のない行や、空白だけの行を取り除きます。</small></span></label>
+        <label class="option"><input type="checkbox" data-operation="removeNewlines"><span><strong>改行を削除</strong><small>すべての行を、区切りを入れずに1行につなげます。</small></span></label>
+        <label class="option"><input type="checkbox" data-operation="halfwidthDigits"><span><strong>全角数字を半角数字に変換</strong><small>例：１２３ → 123</small></span></label>
+        <label class="option"><input type="checkbox" data-operation="halfwidthLetters"><span><strong>全角英字を半角英字に変換</strong><small>例：ＡＢＣ・ａｂｃ → ABC・abc</small></span></label>
+        <label class="option"><input type="checkbox" data-operation="removeBold" checked><span><strong>Markdownの太字記号 ** を削除</strong><small>例：**こんにちは** → こんにちは</small></span></label>
+        <label class="option"><input type="checkbox" data-operation="removeSpaces"><span><strong>文章内の余分な空白を削除</strong><small>半角・全角スペースとタブをすべて削除します。英単語間の空白も消えます。</small></span></label>
+      </fieldset>
+      <div class="format-action">
+        <span class="step">3</span>
+        <button class="button button-primary" id="format-button" type="button" disabled>文章を整形する</button>
+      </div>
+      <p class="hint">元の文章は上の入力欄に残ります。項目を変えて、何度でも整形できます。</p>
+    </section>
+
+    <section class="panel result-panel" aria-labelledby="result-title">
+      <div class="section-heading">
+        <h2 id="result-title"><span class="step">4</span>結果をコピーして利用する</h2>
+        <button class="button button-secondary" id="copy-button" type="button" disabled>コピー</button>
+      </div>
+      <label class="sr-only" for="output-text">整形後の文章</label>
+      <textarea id="output-text" rows="8" placeholder="「文章を整形する」を押すと、ここに結果が表示されます。" readonly spellcheck="false"></textarea>
+      <dl class="counts" aria-label="整形後の文章の情報">
+        <div><dt>文字数</dt><dd id="output-total">0</dd></div>
+        <div><dt>空白を除いた文字数</dt><dd id="output-no-spaces">0</dd></div>
+        <div><dt>行数</dt><dd id="output-lines">0</dd></div>
+      </dl>
+      <p class="status" id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+    <footer>便利Webツール · 文章整形ツール</footer>
+  </main>
+  <dialog id="clear-dialog" aria-labelledby="clear-dialog-title" aria-describedby="clear-dialog-description">
+    <h2 id="clear-dialog-title">文章をクリアしますか？</h2>
+    <p id="clear-dialog-description">入力した文章と整形結果をすべて削除します。</p>
+    <form method="dialog" class="dialog-actions">
+      <button class="button button-quiet" value="cancel" autofocus>キャンセル</button>
+      <button class="button button-primary" value="clear">削除する</button>
+    </form>
+  </dialog>
+</body>
+</html>
