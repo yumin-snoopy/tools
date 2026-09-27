@@ -311,10 +311,6 @@ for (const [name,detail] of Object.entries(byteExampleDetails)) {
   f.source=name==='FINDB'?'https://support.microsoft.com/en-gb/office/find-function-c7912941-af2a-4bdf-a553-d0d89b0a0628':name==='LENB'?'https://support.microsoft.com/en-us/excel/len-function':`https://support.microsoft.com/en-us/excel/functions/${{FINDB:'find',LEFTB:'left',RIGHTB:'right'}[name]}-function`;
  }
 }
-// ユーザー提供のCS検定2級_関数一覧.htmlに掲載された85件。
-// 資料のSUBSTITUDEはSUBSTITUTEへ訂正。公式試験範囲を保証するものではありません。
-const CS_FUNCTION_NAMES = 'DATE DATEVALUE DATEDIF DAY HOUR MINUTE MONTH NOW SECOND TIME TIMEVALUE TODAY WEEKDAY WORKDAY YEAR CHOOSE HLOOKUP INDEX MATCH VLOOKUP XLOOKUP AND FALSE IF IFS NOT OR SWITCH TRUE AVERAGE AVERAGEIF AVERAGEIFS COUNT COUNTA COUNTBLANK COUNTIF COUNTIFS LARGE MAX MAXIFS MIN MINIFS RANK.EQ SMALL PHONETIC CEILING.MATH FLOOR.MATH INT MOD ROUND ROUNDDOWN ROUNDUP SUBTOTAL SUM SUMIF SUMIFS TRUNC ASC CONCAT FIND FINDB JIS LEFT LEFTB LEN LENB LOWER MID PROPER REPLACE REPT RIGHT RIGHTB SUBSTITUTE TEXT TEXTJOIN UPPER VALUE DAVERAGE DCOUNT DCOUNTA DGET DMAX DMIN DSUM'.split(' ');
-for (const f of FUNCTIONS) if(CS_FUNCTION_NAMES.includes(f.name))f.keywords.push('CS検定2級','CS検定','資料掲載');
 FUNCTIONS.find(f=>f.name==='SUBSTITUTE').keywords.push('SUBSTITUDE');
 const TASKS = [
  ['合計したい','SUM SUMIF SUMIFS SUBTOTAL SUMPRODUCT'],['平均を出したい','AVERAGE AVERAGEIF AVERAGEIFS'],['件数を数えたい','COUNT COUNTA COUNTBLANK COUNTIF COUNTIFS'],
@@ -324,6 +320,5 @@ const TASKS = [
  ['エラーを非表示にしたい','IFERROR IFNA'],['重複を除きたい','UNIQUE COUNTIF'],['並べ替えたい','SORT SORTBY'],['条件に合う行だけ表示したい','FILTER'],
  ['複数条件で判定したい','AND OR IFS IF COUNTIFS SUMIFS'],['順位をつけたい','RANK.EQ RANK.AVG LARGE SMALL'],['四捨五入したい','ROUND MROUND'],['ランダムな値を作りたい','RAND RANDBETWEEN RANDARRAY']
 ].map(([label,names]) => ({label,names:names.split(' ')}));
-TASKS.unshift({label:'CS検定2級の資料掲載関数（85件）',names:CS_FUNCTION_NAMES});
 // 用途の日本語でも検索できるように、該当関数へ検索語を付けます。
 for (const task of TASKS) for (const name of task.names) FUNCTIONS.find(f => f.name === name).keywords.push(task.label,task.label.replace(/したい|を出したい|を作りたい/g,''));

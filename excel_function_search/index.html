@@ -4,8 +4,8 @@
 <body><main>
 <header><span class="eyebrow">毎日のExcelに、ひとつのヒント</span><h1>Excel関数検索ツール</h1><p>関数名が分からなくても大丈夫。<br>やりたいことから、使える関数を見つけましょう。</p><span id="inventory" class="badge"></span></header>
 <section class="search-panel" aria-label="検索と絞り込み"><label for="search">関数名・やりたいこと・キーワードで検索</label><div class="search-row"><input id="search" type="search" placeholder="例：合計、商品コード、文字を取り出す" autocomplete="off"><button id="reset" type="button">リセット</button></div><p class="hint">複数の言葉はスペースで区切れます。カテゴリと用途も組み合わせられます。</p>
-<details open><summary>やりたいことから探す</summary><div id="tasks" class="chips"></div></details>
-<label for="category">カテゴリで絞り込む</label><select id="category"><option value="">すべて表示</option></select><p id="selected-task" class="hint"></p></section>
+<div class="task-select"><label for="task">やりたいことから探す</label><select id="task"><option value="">すべて表示</option></select></div>
+<label for="category">カテゴリで絞り込む</label><select id="category"><option value="">すべて表示</option></select></section>
 <section aria-labelledby="result-title"><div class="result-heading"><h2 id="result-title">見つかった関数</h2><p id="count" role="status" aria-live="polite"></p></div><div id="results" class="grid"></div><div id="empty" hidden><h3>該当する関数が見つかりませんでした</h3><p>「合計」「文字」「日付」など短い言葉に変えるか、絞り込みをリセットしてください。</p></div></section>
 <footer><p>数式例はExcelに貼り付けて使えます。セル範囲とデータを自分の表に合わせて変更してください。</p><p>対応版は目安です。Microsoft 365の新しい関数は更新チャネルや環境により利用できない場合があります。</p><a href="https://support.microsoft.com/en-us/excel/excel-functions-alphabetical" target="_blank" rel="noopener">Microsoft公式の関数一覧</a><p><a href="../index.html">便利Webツール一覧</a></p></footer>
 </main><dialog id="detail" aria-labelledby="detail-name"><div class="dialog-bar"><span>関数の使い方</span><button id="close" type="button" aria-label="詳細を閉じる">閉じる ×</button></div><article id="detail-content"></article></dialog><noscript>検索を使うにはJavaScriptを有効にしてください。</noscript></body></html>

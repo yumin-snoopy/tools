@@ -7,14 +7,13 @@ let copyTimer;
 const categories = [...new Set(FUNCTIONS.map(f=>f.category))];
 $('inventory').textContent = `${FUNCTIONS.length}関数・${categories.length}カテゴリ`;
 for(const c of categories){const option=document.createElement('option');option.value=c;option.textContent=c;$('category').append(option);}
-for(const task of TASKS){const b=document.createElement('button');b.type='button';b.textContent=task.label;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>{selectedTask=selectedTask===task?null:task;render();});$('tasks').append(b);}
+TASKS.forEach((task,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=task.label;$('task').append(option);});
+$('task').addEventListener('change',()=>{selectedTask=$('task').value===''?null:TASKS[Number($('task').value)];render();});
 const searchIndex = new Map(FUNCTIONS.map(f=>[f.name,normalize([f.name,f.category,f.summary,...f.useCases,...f.keywords,...f.examples.map(e=>`${e.formula} ${e.explanation}`)].join(' '))]));
 function render(){
  const words=normalize($('search').value.trim()).split(/\s+/).filter(Boolean);
  const found=FUNCTIONS.filter(f=>(!$('category').value||f.category===$('category').value)&&(!selectedTask||selectedTask.names.includes(f.name))&&words.every(w=>searchIndex.get(f.name).includes(w)));
  $('count').textContent=`${found.length}件 / ${FUNCTIONS.length}関数`;
- $('selected-task').textContent=selectedTask?`選択中：${selectedTask.label}（もう一度押すと解除）`:'';
- [...$('tasks').children].forEach((b,i)=>b.setAttribute('aria-pressed',String(TASKS[i]===selectedTask)));
  $('results').replaceChildren();$('empty').hidden=found.length>0;
  const frag=document.createDocumentFragment();
  for(const f of found){const b=document.createElement('button');b.type='button';b.className='function-card';b.innerHTML=`<span class="tag">${escapeHtml(f.category)}</span><strong>${escapeHtml(f.name)}</strong><span>${escapeHtml(f.summary)}</span><span class="use">使用場面：${escapeHtml(f.useCases[0])}</span><span class="arrow">使い方を見る →</span>`;b.addEventListener('click',()=>showDetail(f.name));frag.append(b);}
@@ -34,7 +33,7 @@ async function copyFormula(formula,button){
  try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(formula);else{const area=document.createElement('textarea');area.value=formula;area.style.position='fixed';area.style.opacity='0';$('detail').append(area);area.select();const success=document.execCommand('copy');area.remove();if(!success)throw new Error('copy');}button.textContent='コピーしました';$('copy-status').textContent='コピーしました';clearTimeout(copyTimer);copyTimer=setTimeout(()=>{button.textContent='数式をコピー';if($('copy-status'))$('copy-status').textContent='';},2500);}catch{$('copy-status').textContent='コピーできませんでした。数式を選択してCtrl+C（Macは⌘C）でコピーしてください。';}
 }
 $('search').addEventListener('input',render);$('category').addEventListener('change',render);
-$('reset').addEventListener('click',()=>{$('search').value='';$('category').value='';selectedTask=null;render();$('search').focus();});
+$('reset').addEventListener('click',()=>{$('search').value='';$('category').value='';$('task').value='';selectedTask=null;render();$('search').focus();});
 $('close').addEventListener('click',()=>$('detail').close());
 $('detail').addEventListener('click',e=>{if(e.target===$('detail')){const rect=$('detail').getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)$('detail').close();}});
 // 簡易的な閲覧抑止です。ソースの秘匿やセキュリティを保証しません。
