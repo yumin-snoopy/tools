@@ -1,0 +1,36 @@
+/* 既存ツールと同じ配色・パネル・ボタンを利用。共有CSSは変更しません。 */
+@import url("../text_formatter/style.css");
+select { font: inherit; outline-offset: 4px; }
+select, input[type="text"] { display: block; width: 100%; min-width: 0; min-height: 52px; border: 1px solid #ccbcc5; border-radius: 10px; padding: 12px; color: var(--ink); background: white; }
+.app-shell { max-width: 900px; }
+.back-link { display: inline-block; margin-bottom: 22px; font-size: .9rem; }
+.app-header .hint { margin-top: 12px; }
+.tips { padding: 22px 26px; border-radius: 16px; background: var(--pink); margin-bottom: 24px; }
+.tips h2 { font-size: 1rem; margin-bottom: 8px; }
+.tips ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 28px; margin: 0; padding-left: 22px; font-size: .9rem; }
+.starter { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
+.starter p { margin: 0; color: var(--muted); font-size: .9rem; }
+.field + .field { margin-top: 24px; }
+.field > label, .panel > label { display: block; font-weight: 700; margin-bottom: 10px; }
+.field .hint, .panel > .hint { margin-top: 8px; }
+.optional, .required { font-size: .8rem; font-weight: 400; display: inline-block; color: var(--muted); }
+.required { color: var(--accent); }
+#purpose { min-height: 112px; }
+#source { min-height: 210px; }
+#result { min-height: 350px; }
+.options-grid legend { margin-bottom: 14px; }
+.option { font-size: .94rem; padding: 14px; }
+.output-field { margin-top: 26px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.generate-actions { justify-content: center; }
+#form-status { text-align: center; margin-bottom: 22px; }
+.copy-actions { margin-top: 18px; }
+/* モバイルでは説明・ボタンを縦に並べ、大きな入力欄を確保します。 */
+@media (max-width: 640px) {
+  .tips { padding: 20px 18px; }
+  .tips ul { grid-template-columns: 1fr; }
+  .starter { flex-direction: column; align-items: stretch; gap: 10px; }
+  .actions { flex-direction: column; align-items: stretch; }
+  .button-primary { padding: 12px 16px; font-size: 1rem; }
+  textarea { padding: 12px; }
+}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff5f8">
+  <meta name="description" content="項目を選んで入力するだけで、生成AIに伝わりやすいプロンプトを作成できます。">
+  <title>プロンプト作成支援ツール | 便利Webツール</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <script src="../source-guard.js" defer></script>
+</head>
+<body>
+<main class="app-shell">
+  <header class="app-header">
+    <a class="back-link" href="../">← ツール一覧</a>
+    <span class="eyebrow">伝えたいことを、ひとつずつ</span>
+    <h1>プロンプト作成支援ツール</h1>
+    <p class="lead">項目を選んで入力するだけで、生成AIに伝わりやすいプロンプトを作成できます。</p>
+    <p class="privacy-note">入力内容は外部へ送信されません</p>
+    <p class="hint">プロンプトは、AIへの「お願いの文章」です。このツールで作成し、ChatGPTなどに貼り付けて使います。</p>
+  </header>
+  <aside class="tips" aria-labelledby="tips-title">
+    <h2 id="tips-title">よいプロンプトを作るポイント</h2>
+    <ul><li>AIに何をしてほしいかを明確にする</li><li>誰向けの内容かを書く</li><li>条件を具体的に伝える</li><li>どのような形で回答してほしいかを書く</li></ul>
+  </aside>
+  <div class="starter">
+    <p>初めての方は、入力例から試せます。</p>
+    <button id="sample" class="button button-secondary" type="button">サンプルを入力</button>
+  </div>
+  <form id="prompt-form">
+    <section class="panel" aria-labelledby="purpose-title">
+      <h2 id="purpose-title"><span class="step">1</span>やりたいことを選ぶ</h2>
+      <label for="use-case">どんな用途でAIを使いますか？ <span class="optional">任意</span></label>
+      <select id="use-case">
+        <option value="">選んでください</option>
+        <option value="writing">文章作成</option><option value="email">メール作成</option>
+        <option value="summary">文章の要約</option><option value="ideas">アイデア出し</option>
+        <option value="data">Excel・データ分析</option><option value="code">プログラミング</option>
+        <option value="learning">学習・解説</option><option value="slides">プレゼン資料作成</option>
+        <option value="other">その他</option>
+      </select>
+      <p class="hint">用途を選ぶと、目的の入力例が変わります。</p>
+    </section>
+    <section class="panel" aria-labelledby="content-title">
+      <h2 id="content-title"><span class="step">2</span>必要な内容を入力する</h2>
+      <div class="field">
+        <label for="purpose">目的 — AIに何をしてほしいですか？ <span class="required">必須</span></label>
+        <textarea id="purpose" rows="3" required placeholder="例：初心者向けにVLOOKUPを説明してほしい" aria-describedby="purpose-hint"></textarea>
+        <p id="purpose-hint" class="hint">「何を」「どうしてほしいか」を短く書けば大丈夫です。</p>
+      </div>
+      <div class="field">
+        <label for="audience">対象者 — 誰向けの内容ですか？ <span class="optional">任意</span></label>
+        <input id="audience" type="text" list="audience-options" placeholder="選択または自由入力（例：取引先）" autocomplete="off">
+        <datalist id="audience-options"><option value="初心者"></option><option value="一般社員"></option><option value="上司"></option><option value="お客様"></option><option value="学生"></option><option value="特に指定しない"></option></datalist>
+        <p class="hint">候補から選べます。「取引先」など、自由に入力することもできます。</p>
+      </div>
+      <div class="field">
+        <label for="source">入力データ・元の文章 <span class="optional">任意</span></label>
+        <textarea id="source" rows="7" placeholder="AIに渡す文章や情報を貼り付けてください。&#10;例：本来の納期は10月1日、変更後の納期は10月5日。&#10;空欄のままでも作成できます。"></textarea>
+      </div>
+    </section>
+    <section class="panel" aria-labelledby="conditions-title">
+      <h2 id="conditions-title"><span class="step">3</span>条件を選ぶ</h2>
+      <fieldset class="options-grid">
+        <legend>回答に入れたい条件 <span class="optional">任意・複数選択できます</span></legend>
+        <label class="option"><input type="checkbox" name="condition" value="初心者にも分かる言葉で説明してください。">初心者にも分かる言葉で説明する</label>
+        <label class="option"><input type="checkbox" name="condition" value="具体例を入れてください。">具体例を入れる</label>
+        <label class="option"><input type="checkbox" name="condition" value="箇条書きでまとめてください。" data-layout="bullets">箇条書きでまとめる</label>
+        <label class="option"><input type="checkbox" name="condition" value="表形式でまとめてください。" data-layout="table">表形式でまとめる</label>
+        <label class="option"><input type="checkbox" name="condition" value="ステップ形式で説明してください。" data-layout="steps">ステップ形式で説明する</label>
+        <label class="option"><input type="checkbox" name="condition" value="専門用語には説明を付けてください。">専門用語には説明を付ける</label>
+        <label class="option"><input type="checkbox" name="condition" value="簡潔にまとめてください。" id="concise">簡潔にまとめる</label>
+        <label class="option"><input type="checkbox" name="condition" value="詳しく説明してください。" id="detailed">詳しく説明する</label>
+        <label class="option"><input type="checkbox" name="condition" value="事実と推測を分けてください。">事実と推測を分ける</label>
+        <label class="option"><input type="checkbox" name="condition" value="注意点も説明してください。">注意点も説明する</label>
+        <label class="option"><input type="checkbox" name="condition" value="丁寧な文章にしてください。" id="polite">丁寧な文章</label>
+        <label class="option"><input type="checkbox" name="condition" value="今後の対応も記載してください。" id="next-action">今後の対応も記載する</label>
+      </fieldset>
+      <div class="field output-field">
+        <label for="format">出力形式 — どんな形で回答してほしいですか？ <span class="optional">任意</span></label>
+        <select id="format"><option value="">特に指定しない</option><option value="text">文章</option><option value="bullets">箇条書き</option><option value="table">表</option><option value="steps">手順形式</option><option value="email">メール形式</option><option value="free">自由</option></select>
+      </div>
+      <p id="condition-hint" class="hint" role="status"></p>
+    </section>
+    <div class="actions generate-actions">
+      <button class="button button-primary" type="submit"><span aria-hidden="true">4　</span>プロンプトを作成する</button>
+      <button id="clear" class="button button-quiet" type="button">クリア</button>
+    </div>
+    <p id="form-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </form>
+  <section class="panel result-panel" aria-labelledby="result-title">
+    <h2 id="result-title"><span class="step">5</span>完成したプロンプトをコピーする</h2>
+    <p id="result-hint" class="section-description">作成した文章は、この欄で自由に編集できます。</p>
+    <label class="sr-only" for="result">完成したプロンプト（編集できます）</label>
+    <textarea id="result" rows="15" placeholder="「プロンプトを作成する」を押すと、ここに表示されます。" aria-describedby="result-hint" spellcheck="false"></textarea>
+    <div class="actions copy-actions"><button id="copy" class="button button-secondary" type="button" disabled>プロンプトをコピー</button></div>
+    <p id="copy-status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p class="hint">コピーした文章をChatGPTなどの入力欄に貼り付けて送信してください。AIの回答は、このツール内では生成されません。</p>
+  </section>
+  <footer>便利Webツール · プロンプト作成支援ツール</footer>
+</main>
+</body>
+</html>
