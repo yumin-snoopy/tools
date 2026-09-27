@@ -1,15 +1,10 @@
-/* 既存ツールと同じ配色・パネル・ボタンを利用。共有CSSは変更しません。 */
+/* 3つのアプリ共通の配色・読みやすい文字・パネル・ボタンを利用。 */
 @import url("../text_formatter/style.css");
-/* 本文と補足説明を濃くし、このツール内の文字を読みやすくします。 */
-:root { --ink: #242024; --muted: #342e34; }
-body { font-weight: 500; }
-.lead { color: var(--ink); }
-/* 説明文・注意書きも濃い色と太さで表示します。 */
-.lead, .hint, .privacy-note, .section-description, .starter p, .tips li {
+/* このツール独自の説明にも共通の濃い文字を適用します。 */
+.starter p, .tips li {
   color: #292329;
   font-weight: 600;
 }
-textarea::placeholder, input::placeholder { color: #625661; opacity: 1; }
 select { font: inherit; outline-offset: 4px; }
 select, input[type="text"] { display: block; width: 100%; min-width: 0; min-height: 52px; border: 1px solid #ccbcc5; border-radius: 10px; padding: 12px; color: var(--ink); background: white; }
 .app-shell { max-width: 900px; }
@@ -18,11 +13,11 @@ select, input[type="text"] { display: block; width: 100%; min-width: 0; min-heig
 .tips h2 { font-size: 1rem; margin-bottom: 8px; }
 .tips ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 28px; margin: 0; padding-left: 22px; font-size: .9rem; }
 .starter { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
-.starter p { margin: 0; color: var(--muted); font-size: .9rem; }
+.starter p { margin: 0; font-size: .9rem; }
 .field + .field { margin-top: 24px; }
 .field > label, .panel > label { display: block; font-weight: 700; margin-bottom: 10px; }
 .field .hint, .panel > .hint { margin-top: 8px; }
-.optional, .required { font-size: .8rem; font-weight: 400; display: inline-block; color: var(--muted); }
+.optional, .required { font-size: .8rem; font-weight: 600; display: inline-block; color: var(--muted); }
 .required { color: var(--accent); }
 #purpose { min-height: 112px; }
 #source { min-height: 210px; }
