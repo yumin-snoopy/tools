@@ -2,7 +2,7 @@
 (() => {
   const $ = id => document.getElementById(id);
   const input = $("qr-input"), canvas = $("qr-canvas"), status = $("status");
-  let timer, revision = 0;
+  let timer;
   qrcode.stringToBytes = qrcode.stringToBytesFuncs["UTF-8"];
   function message(text, error = false, temporary = false) {
     clearTimeout(timer);
@@ -11,7 +11,6 @@
     if (temporary) timer = setTimeout(() => { status.textContent = ""; }, 3500);
   }
   function resetResult() {
-    revision++;
     canvas.hidden = true;
     canvas.width = canvas.height = 0;
     $("placeholder").hidden = false;
@@ -22,7 +21,6 @@
     const count = Array.from(input.value).length;
     $("char-count").textContent = `文字数：${count.toLocaleString("ja-JP")}文字`;
     $("length-warning").hidden = count <= 300;
-    $("copy").disabled = !input.value;
     resetResult();
   }
   function luminance(hex) {
@@ -81,23 +79,6 @@
     document.body.append(a);
     a.click();
     a.remove();
-  });
-  $("copy").addEventListener("click", async () => {
-    if (!input.value) return;
-    const version = revision;
-    try {
-      try { await navigator.clipboard.writeText(input.value); }
-      catch {
-        if (version !== revision) return;
-        input.focus(); input.select();
-        if (!document.execCommand("copy")) throw new Error("copy");
-      }
-      if (version === revision) message("コピーしました", false, true);
-    } catch {
-      if (version !== revision) return;
-      input.focus(); input.select();
-      message("自動コピーができませんでした。選択した入力内容をコピーしてください。", true);
-    }
   });
   $("clear").addEventListener("click", () => {
     $("qr-form").reset();
