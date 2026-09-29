@@ -31,7 +31,7 @@
 
 ## GitHub Pagesの公開URL
 
-公開後に記入：`https://yumin-snoopy.github.io/tools/image_resizer/`
+公開URL：`https://yumin-snoopy.github.io/tools/image_resizer/`
 
 GitHub Pagesが`main`ブランチのルートを公開している場合、`tools`リポジトリのルートに`image_resizer`フォルダを配置すると上記URLになります。
 
