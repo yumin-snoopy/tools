@@ -124,10 +124,6 @@ Microsoft公式一覧：https://support.microsoft.com/en-us/excel/excel-function
 
 文字列結合系（CONCAT・CONCATENATE・TEXTJOIN）の数式例は、入力セルとその値、数式を入力するセル、計算結果を順番に表示します。`examples` に `inputs: [{cell, value, meaning}]`、`outputCell`、`result` を追加すれば他の関数でも同じ表示を利用できます。空白セルの値は空文字で指定します。
 
-### CS検定2級の資料掲載関数
-
-ユーザー提供の「CS検定2級_関数一覧.html」の85件を照合し、PHONETIC・FINDB・LEFTB・LENB・RIGHTBの5関数を追加しました。資料のSUBSTITUDEは正しいSUBSTITUTEに対応させ、誤記でも検索できます。CS検定2級による専用の絞り込みは設けていません。公式試験範囲の認定ではなく、提供資料との照合です。元のHTMLは変更していません。
-
 追加例には入力セルの値・数式を置くセル・結果を記載。PHONETICはふりがな情報の準備、B系関数は日本語DBCS設定での計算と非推奨の注意を示しています。
 
 確認資料：
