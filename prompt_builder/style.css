@@ -1,12 +1,12 @@
 /* 3つのアプリ共通の配色・読みやすい文字・パネル・ボタンを利用。 */
-@import url("../text_formatter/style.css");
+@import url("../text_formatter/style.css?v=theme-1");
 /* このツール独自の説明にも共通の濃い文字を適用します。 */
 .starter p, .tips li {
-  color: #292329;
+  color: var(--text-color);
   font-weight: 600;
 }
 select { font: inherit; outline-offset: 4px; }
-select, input[type="text"] { display: block; width: 100%; min-width: 0; min-height: 52px; border: 1px solid #ccbcc5; border-radius: 10px; padding: 12px; color: var(--ink); background: white; }
+select, input[type="text"] { display: block; width: 100%; min-width: 0; min-height: 52px; border: 1px solid var(--input-border); border-radius: 10px; padding: 12px; color: var(--ink); background: white; }
 .app-shell { max-width: 900px; }
 .app-header .hint { margin-top: 12px; }
 .tips { padding: 22px 26px; border-radius: 16px; background: var(--pink); margin-bottom: 24px; }
@@ -38,3 +38,4 @@ select, input[type="text"] { display: block; width: 100%; min-width: 0; min-heig
   .button-primary { padding: 12px 16px; font-size: 1rem; }
   textarea { padding: 12px; }
 }
+

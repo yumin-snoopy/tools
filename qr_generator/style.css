@@ -1,6 +1,6 @@
-@import url("../text_formatter/style.css");
+@import url("../text_formatter/style.css?v=theme-1");
 .app-header h1 { margin-top: 22px; }
-select { font: inherit; padding: 12px 18px; border: 1px solid #ccbcc5; border-radius: 10px; color: var(--ink); background: white; width: min(100%, 320px); min-height: 48px; }
+select { font: inherit; padding: 12px 18px; border: 1px solid var(--input-border); border-radius: 10px; color: var(--ink); background: white; width: min(100%, 320px); min-height: 48px; }
 #char-count { color: var(--muted); margin: 12px 0; }
 #length-warning { margin-bottom: 20px; color: #8a4520; }
 details { margin-top: 24px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; }
@@ -13,3 +13,4 @@ input[type=color] { width: 60px; height: 46px; cursor: pointer; }
 .result-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 20px; }
 [hidden] { display: none !important; }
 @media (max-width: 640px) { .result-actions .button { width: 100%; } .format-action .button { font-size: 1rem; } }
+

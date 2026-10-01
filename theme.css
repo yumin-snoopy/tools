@@ -1,0 +1,107 @@
+/* Add theme.css after each tool's stylesheet. */
+:root,
+:root[data-theme="beige"] {
+  color-scheme: light;
+  --bg-color: #faf7f0;
+  --bg-end: #fcfbf8;
+  --surface: #fffefa;
+  --surface-soft: #f4eee3;
+  --surface-hover: #eee5d7;
+  --surface-selected: #f4eadb;
+  --main-color: #715439;
+  --accent-color: #725338;
+  --accent-hover: #59402b;
+  --accent-border: #b99c7c;
+  --border-color: #d9c9b5;
+  --input-border: #ae9b85;
+  --button-color: #725338;
+  --button-hover: #59402b;
+  --text-color: #292721;
+  --muted-color: #403c35;
+  --shadow-color: #503d200d;
+  --focus-color: #725338;
+  --ink: var(--text-color);
+  --muted: var(--muted-color);
+  --accent: var(--accent-color);
+  --accent-dark: var(--accent-hover);
+  --pink: var(--surface-soft);
+  --border: var(--border-color);
+  --line: var(--border-color);
+}
+:root[data-theme="pink"] {
+  --bg-color: #fff5f8;
+  --bg-end: #fcfafb;
+  --surface: #ffffff;
+  --surface-soft: #fff0f5;
+  --surface-hover: #ffe2ed;
+  --surface-selected: #fff6f9;
+  --main-color: #86274a;
+  --accent-color: #a73560;
+  --accent-hover: #86274a;
+  --accent-border: #d285a3;
+  --border-color: #eadfe5;
+  --input-border: #b7a2ac;
+  --button-color: #a73560;
+  --button-hover: #86274a;
+  --text-color: #242024;
+  --muted-color: #342e34;
+  --shadow-color: #5730440d;
+  --focus-color: #a73560;
+}
+:root[data-theme="blue"] {
+  --bg-color: #f2f8fa;
+  --bg-end: #f9fbfc;
+  --surface: #ffffff;
+  --surface-soft: #e8f2f5;
+  --surface-hover: #dcecf1;
+  --surface-selected: #edf6f8;
+  --main-color: #34586c;
+  --accent-color: #3a647c;
+  --accent-hover: #2b4d61;
+  --accent-border: #8cabb9;
+  --border-color: #cadde4;
+  --input-border: #9db6c1;
+  --button-color: #3a647c;
+  --button-hover: #2b4d61;
+  --text-color: #24313a;
+  --muted-color: #354955;
+  --shadow-color: #2746570d;
+  --focus-color: #3a647c;
+}
+html { background: var(--bg-color); }
+body { background: linear-gradient(180deg, var(--bg-color) 0, var(--bg-end) 430px); color: var(--text-color); }
+h1, h2, h3 { color: var(--text-color); }
+a { color: var(--accent-color); }
+button, input, select, textarea { accent-color: var(--accent-color); }
+.panel, .tool-card, .card, .search-panel, .function-card, .formula-basics, dialog,
+.privacy-note, textarea, input:not([type="range"]):not([type="color"]), select {
+  background-color: var(--surface);
+}
+input:not([type="range"]):not([type="color"]), select, textarea {
+  color: var(--text-color);
+}
+::selection { background: var(--surface-hover); color: var(--text-color); }
+.theme-switcher {
+  display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap;
+  gap: 7px; max-width: 1160px; margin: 0 auto; padding: 10px 20px 0;
+  color: var(--muted-color); font: 600 .85rem/1.4 "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+.theme-switcher__label { margin-right: 3px; }
+.theme-switcher__choices { display: flex; gap: 5px; flex-wrap: wrap; }
+.theme-switcher__choice {
+  display: inline-flex; align-items: center; gap: 5px; min-height: 36px;
+  padding: 5px 9px; border: 1px solid var(--border-color); border-radius: 999px;
+  background: var(--surface); color: var(--text-color); font: inherit; cursor: pointer;
+}
+.theme-switcher__choice:hover { background: var(--surface-hover); border-color: var(--accent-border); }
+.theme-switcher__choice[aria-pressed="true"] { background: var(--surface-selected); border-color: var(--accent-color); font-weight: 700; }
+.theme-switcher__choice:focus-visible { outline: 3px solid var(--focus-color); outline-offset: 2px; }
+.theme-switcher__dot { width: 14px; height: 14px; flex: none; border: 1px solid #776f6880; border-radius: 50%; }
+.theme-switcher__choice[data-theme-choice="pink"] .theme-switcher__dot { background: #e9b9cc; }
+.theme-switcher__choice[data-theme-choice="blue"] .theme-switcher__dot { background: #a9c9d6; }
+.theme-switcher__choice[data-theme-choice="beige"] .theme-switcher__dot { background: #dbc9ad; }
+@media (max-width: 540px) {
+  .theme-switcher { padding: 8px 12px 0; gap: 4px; font-size: .78rem; }
+  .theme-switcher__choice { min-height: 34px; padding: 4px 7px; }
+  .theme-switcher__dot { width: 12px; height: 12px; }
+}
