@@ -13,10 +13,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fff5f8">
   <title>QRコード作成ツール | 便利Webツール</title>
-  <link rel="stylesheet" href="style.css?v=201a773e572e"><link rel="stylesheet" href="../theme.css?v=1"><script src="../theme.js?v=1"></script>
+  <link rel="stylesheet" href="style.css?v=caption-palettes-1"><link rel="stylesheet" href="../theme.css?v=1"><script src="../theme.js?v=1"></script>
   <script src="vendor/qrcode.js" defer></script>
   <script src="vendor/qrcode_UTF8.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="script.js?v=caption-palettes-1" defer></script>
   <script src="../source-guard.js" defer></script>
 </head>
 <body>
@@ -33,8 +33,20 @@
     <p id="length-warning" class="hint" hidden>文字数が多いとQRコードが細かくなり、読み取りにくくなる場合があります</p>
     <h2><label for="qr-size"><span class="step">2</span>サイズを選ぶ</label></h2>
     <select id="qr-size"><option value="256">小（256px）</option><option value="384" selected>中（384px）</option><option value="512">大（512px）</option></select>
+    <div class="caption-option">
+      <label for="qr-caption">説明文（任意）</label>
+      <input id="qr-caption" type="text" placeholder="例：ホームページはこちら" autocomplete="off">
+      <p class="hint">QRコードの下に表示します。読み取る内容には含まれません。</p>
+    </div>
     <details id="advanced">
       <summary>詳細設定（色を変える）</summary>
+      <p class="palette-heading">おすすめ配色</p>
+      <div class="palette-options" role="group" aria-label="おすすめ配色">
+        <button type="button" class="palette-button" data-preset="standard" aria-pressed="false"><span class="palette-swatch" style="--swatch-ink:#111111;--swatch-bg:#FFFFFF" aria-hidden="true"></span>標準</button>
+        <button type="button" class="palette-button" data-preset="pink" aria-pressed="false"><span class="palette-swatch" style="--swatch-ink:#9F355D;--swatch-bg:#FFF0F5" aria-hidden="true"></span>ピンク</button>
+        <button type="button" class="palette-button" data-preset="blue" aria-pressed="false"><span class="palette-swatch" style="--swatch-ink:#204F86;--swatch-bg:#EDF5FF" aria-hidden="true"></span>ブルー</button>
+        <button type="button" class="palette-button" data-preset="green" aria-pressed="false"><span class="palette-swatch" style="--swatch-ink:#266047;--swatch-bg:#F1FAF2" aria-hidden="true"></span>グリーン</button>
+      </div>
       <div class="color-options">
         <label>QRコードの色 <input type="color" id="qr-color" value="#000000"></label>
         <label>背景色 <input type="color" id="bg-color" value="#ffffff"></label>

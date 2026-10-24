@@ -1,10 +1,20 @@
 @import url("../text_formatter/style.css?v=theme-1");
 .app-header h1 { margin-top: 22px; }
 select { font: inherit; padding: 12px 18px; border: 1px solid var(--input-border); border-radius: 10px; color: var(--ink); background: white; width: min(100%, 320px); min-height: 48px; }
+.caption-option { margin-top: 22px; }
+.caption-option label, .palette-heading { display: block; font-weight: 700; margin-bottom: 8px; }
+.caption-option input { display: block; box-sizing: border-box; width: 100%; min-height: 48px; font: inherit; padding: 12px 14px; border: 1px solid var(--input-border); border-radius: 10px; color: var(--ink); background: white; }
+.caption-option .hint { margin: 8px 0 0; }
 #char-count { color: var(--muted); margin: 12px 0; }
 #length-warning { margin-bottom: 20px; color: #8a4520; }
 details { margin-top: 24px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; }
 summary { cursor: pointer; font-weight: 700; }
+.palette-heading { margin: 18px 0 10px; }
+.palette-options { display: flex; flex-wrap: wrap; gap: 10px; }
+.palette-button { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 5px 10px; border: 1px solid var(--input-border); border-radius: 9px; color: var(--ink); background: white; font: inherit; cursor: pointer; }
+.palette-button[aria-pressed="true"] { border: 2px solid var(--ink); padding: 4px 9px; font-weight: 700; }
+.palette-button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.palette-swatch { display: inline-block; width: 25px; height: 25px; flex: none; border: 1px solid #888; border-radius: 5px; background: linear-gradient(90deg, var(--swatch-ink) 50%, transparent 50%) 4px 4px / 12px 12px no-repeat, linear-gradient(90deg, transparent 50%, var(--swatch-ink) 50%) 4px 10px / 12px 12px no-repeat, var(--swatch-bg); }
 .color-options { display: flex; flex-wrap: wrap; gap: 20px; margin: 18px 0; }
 .color-options label { display: flex; align-items: center; gap: 12px; }
 input[type=color] { width: 60px; height: 46px; cursor: pointer; }
